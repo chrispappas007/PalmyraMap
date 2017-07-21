@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset=utf-8 />
+  <title>Status of Palmyra Structures</title>
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+  <link href="https://fonts.googleapis.com/css?family=Monda" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Vollkorn" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: whitesmoke;
+      font-family: "Monda", sans-serif;
+      color: #3d3d3d;
+    }
+
+    section {
+      width: 960px;
+      margin: 20px auto;
+    }
+
+    h1 {
+      width: 960px;
+      margin: 20px auto;
+      font-family: "Vollkorn", serif;
+      letter-spacing: .04em;
+    }
+
+    h2 {
+      font-family: "Vollkorn", serif;
+      letter-spacing: .04em;
+    }
+
+    p {
+      font-size: 1em;
+      line-height: 1.5em;
+    }
+
+    a {
+      color: #005daa;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    #map {
+      width: 960px;
+      height: 540px;
+      margin: 10px auto;
+      border: 2px solid #d3d3d3;
+    }
+
+    .icon:hover {
+      /*opacity: .8;*/
+    }
+
+    .leaflet-popup-content h3 {
+      font-family: "Vollkorn", serif;
+      font-size: 1.3em;
+      margin-bottom: 6px;
+    }
+
+    .leaflet-popup-content p {
+      margin: 3px 0 6px;
+      font-size: 1.1em;
+    }
+
+    .leaflet-popup-content a {
+      font-weight: normal;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Status of Notable Structures at Palmyra, Syria</h1>
+
+  <div id='map'></div>
+
+
+  <section>
+
+    <p>Map created by <a href="https://github.com/chrispappas007">Christina Pappas</a></p>
+
+    <p><a href="https://en.wikipedia.org/wiki/Palmyra">Palmyra</a> is a <a href="http://whc.unesco.org/en/list/23">UNESCO World Heritage Site</a>.</p>
+    <p>Palmyra is located at an oasis in the Syrian desert. It became an important city in the ancient world linking
+      trade routes to Persia, India, and China with the Roman Empire. Palmyra had sustained minor damage during the Syrian Civil War, but its occupation by ISIS has lead to widespread damage from looting and the intentional destruction of structures.
+      The <a href="http://www.newpalmyra.org/">#NEWPALMYRA</a> project has been working with archaeologists, museums, and other researchers to collect images of the structures at Palmyra and create 3D models that will be in the public domain.
+      The Getty Institute recently launched its first vitural <a href="http://www.getty.edu/research/exhibitions_events/exhibitions/palmyra/">exhibit</a> focusing exclusively on its rare print and photograph collection of Palmyra.</p>
+
+  </section>
+
+  <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+  <script>
+    var map = L.map('map', {
+      center: [34.555367, 38.271080],
+      zoom: 14.5
+    });
+
+    var tiles = L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    });
+    map.addLayer(tiles);
+
+    // Begin writing/modifying code for Lab 06 here
+    //Define hotspots object
+    var hotspots = [{
+        name: "Arch of Triumph",
+        properties: {
+          description: "An ornamental archway built in the 3rd century " +
+            "in Palmyra, Syria.",
+          coordinates: [34.549864, 38.26994],
+          url: 'https://en.wikipedia.org/wiki/Monumental_Arch_of_Palmyra',
+          status: "Destroyed",
+          icon: 'svgs/landmark-11.svg'
+        }
+      },
+      {
+        name: "Temple of Baal Shamin",
+        properties: {
+          description: "An ancient temple initially constructed in the late 2nd century " +
+            "and substantially rebuilt in 131 AD.",
+          coordinates: [34.55340, 38.26994],
+          url: 'https://en.wikipedia.org/wiki/Temple_of_Baalshamin',
+          status: "Destroyed",
+          icon: 'svgs/landmark-15.svg'
+        }
+      },
+      {
+        name: "Temple of Bel",
+        properties: {
+          description: "Dedicated in 32 AD, this temple had been considered one of " +
+            "the best preserved at Palmyra until its destruction by ISIS.",
+          coordinates: [34.547, 38.274],
+          url: 'https://en.wikipedia.org/wiki/Temple_of_Bel',
+          status: "Destroyed",
+          icon: 'svgs/landmark-15.svg'
+        }
+      },
+      {
+        name: "Roman Theater",
+        properties: {
+          description: "Construction began during the 2nd century on this Roman " +
+            "theater but it was never completed. While the facade was heavily damaged by ISIS, " +
+            "the main structure appears to have survived.",
+          coordinates: [34.550768, 38.268761],
+          url: 'https://en.wikipedia.org/wiki/Roman_Theatre_at_Palmyra',
+          status: "Intact",
+          icon: 'svgs/landmark-15.svg'
+        }
+      },
+      {
+        name: "Fakhr-al-Din al-Ma'ani Castle",
+        properties: {
+          description: "An Ottoman castle built at Palmyra during the 13th century. While it " +
+            "suffered extensive damage during the ISIS retreat, the basic structure is intact.",
+          coordinates: [34.562867, 38.257123],
+          url: 'https://en.wikipedia.org/wiki/Palmyra_Castle',
+          status: "Intact",
+          icon: 'svgs/landmark-15.svg'
+        }
+      },
+      {
+        name: "Tetrapylon",
+        properties: {
+          description: "Constructed during the 3rd century, this was a square platform with a group " +
+            "of four columns on each corner.",
+          coordinates: [34.551528, 38.268012],
+          url: "N/A",
+          status: "Destroyed",
+          icon: 'svgs/landmark-11.svg'
+        }
+      },
+      {
+        name: "Funerary Temple No. 86",
+        properties: {
+          description: "Built during the 3rd century, this is the only tomb located inside the " +
+            "city walls.",
+          coordinates: [34.555418, 38.263117],
+          url: "N/A",
+          status: "Intact",
+          icon: 'svgs/landmark-15.svg'
+        }
+      }
+    ];
+
+    var i = 0; //variable to ref 0 index
+
+    // loop through array with forEach method
+    hotspots.forEach(function(hotspot, i){
+
+      console.log(hotspot); // access to each feature
+      console.log(i); // access to iterators if you need them
+
+      var props = hotspot.properties; //variable to access the properties of each location
+
+      var icon = L.icon({ //variable to create the icons
+        iconUrl: props.icon,
+        iconSize: [30, 30],
+        popupAnchor: [0, -22],
+        className: 'icon'
+      });
+
+      console.log(hotspot.name); //log to console property names
+      console.log(props.description); //log to console each location's description
+
+      //Create popup for each location by accessing properties and concatation
+      var popup = "<h3>" + hotspot.name + "</h3>" +
+        "<p>" + props.description + "</p>";
+
+      // if the url isn't "N/A"
+      if(props.url != "N/A"){
+          // concat string info for website
+          popup += "<p><b>Website</b>: <a href=' " + props.url + "'>" + props.url + "</a></p>";
+      }
+
+      // concat status
+      popup += "<p><b>Status</b>: " + props.status + "</p>";
+
+      //Place marker at each location
+      var marker = L.marker(props.coordinates, { //accessing coordinates for each location
+        icon: icon
+      }).addTo(map).bindPopup(popup); //add to map and have popup appear
+
+      marker.on('mouseover', function() { //when mouse hovers over marker make it do a thing
+        this.openPopup(); //the thing is to open the popup
+      });
+
+      marker.on('mouseout', function() { //when the mouse moves away from the marker it will do a thing
+        this.closePopup(); //the thing will be to close the popup
+      });
+
+  }); //end  loop that cycled thru each feature
+
+  </script>
+
+</body>
+
+</html>
